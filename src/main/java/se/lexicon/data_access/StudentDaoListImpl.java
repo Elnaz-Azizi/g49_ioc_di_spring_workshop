@@ -28,7 +28,7 @@ public class StudentDaoListImpl implements StudentDao {
     }
 
     @Override
-    public Student find(int id) throws StudentNotFoundException {
+    public Student find(int id)  {
         return students.stream()
                 .filter(student -> student.getId() == id)
                 .findFirst()
@@ -41,7 +41,7 @@ public class StudentDaoListImpl implements StudentDao {
     }
 
     @Override
-    public void delete(int id) throws StudentNotFoundException {
+    public void delete(int id)  {
         Optional.ofNullable(find(id)).ifPresent(students::remove);
     }
 }
