@@ -21,11 +21,26 @@ public class StudentDaoListImpl implements StudentDao {
 
     @Override
     public Student save(Student student) {
-        if (student == null) throw new IllegalArgumentException("Student is null");
-        student.setId(StudentIdSequencer.nextId());
-        students.add(student);
-        return student;
-    }
+
+            if (student == null) throw new IllegalArgumentException("Student is null");
+
+            // Check if the student already exists
+            Optional<Student> existingStudentOpt = students.stream()
+                    .filter(s -> s.getId() == student.getId())
+                    .findFirst();
+
+            if (existingStudentOpt.isPresent()) {
+                // If student exists, update the existing student
+                Student existingStudent = existingStudentOpt.get();
+                existingStudent.setName(student.getName());
+                return existingStudent;
+            } else {
+                // If student doesn't exist, assign a new ID and add as a new student
+                student.setId(StudentIdSequencer.nextId());
+                students.add(student);
+                return student;
+            }
+        }
 
     @Override
     public Student find(int id)  {

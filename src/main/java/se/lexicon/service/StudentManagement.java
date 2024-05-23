@@ -2,6 +2,8 @@ package se.lexicon.service;
 
 import se.lexicon.models.Student;
 
+import java.util.List;
+
 public interface StudentManagement {
 
     Student create();
@@ -11,6 +13,8 @@ public interface StudentManagement {
     Student find(int id);
 
     Student remove(int id);
+
+    List<Student> findAllStudents();
 
     Student edit(Student student);
 }
